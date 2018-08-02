@@ -1,0 +1,43 @@
+nav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: -250px;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 60px;
+    color: white;
+    transition-timing-function: ease-in-out;
+}
+
+nav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.nav-open {
+    left: 0;
+}
+
+@media (min-width: 768px) {
+    header button {
+        display: none;
+    }
+    
+    nav {
+        left: 0;
+    }
+
+    nav .closebtn {
+        display: none;
+    }
+
+    main, header {
+        margin-left: 250px;
+    }
+}
