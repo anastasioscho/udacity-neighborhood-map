@@ -46,7 +46,7 @@ class App extends Component {
     document.querySelector('nav').classList.add('nav-open');
     window.setTimeout(() => {
       document.querySelector('nav').style.transition = 'none';
-    }, 400)
+    }, 400);
   }
 
   closeNav() {
@@ -54,7 +54,7 @@ class App extends Component {
     document.querySelector('nav').classList.remove('nav-open');
     window.setTimeout(() => {
       document.querySelector('nav').style.transition = 'none';
-    }, 400)
+    }, 400);
   }
 
   state = {
