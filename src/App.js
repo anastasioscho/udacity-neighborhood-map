@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import LocationsList from './components/LocationsList'
 
 class App extends Component {
   openNav() {
@@ -27,13 +28,7 @@ class App extends Component {
         </header>
         <nav role="navigation">
           <button className="closebtn" onClick={this.closeNav}>&times;</button>
-          <ul>
-            <li>Point of interest 1</li>
-            <li>Point of interest 2</li>
-            <li>Point of interest 3</li>
-            <li>Point of interest 4</li>
-            <li>Point of interest 5</li>
-          </ul>
+          <LocationsList/>
         </nav>
         <main role="main">
           <p>This is where the map goes</p>
