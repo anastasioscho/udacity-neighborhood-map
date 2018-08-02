@@ -8,31 +8,36 @@ class App extends Component {
       id: '0',
       title: 'Panagia',
       lat: 40.730162,
-      long: 24.729016
+      long: 24.729016,
+      category: 'villages'
     },
     {
       id: '1',
       title: 'Chrisi Ammoudia',
       lat: 40.729866,
-      long: 24.758319
+      long: 24.758319,
+      category: 'beaches'
     },
     {
       id: '2',
       title: 'Limenaria',
       lat: 40.627413,
-      long: 24.574206
+      long: 24.574206,
+      category: 'villages'
     },
     {
       id: '3',
       title: 'Thasos',
       lat: 40.775314,
-      long: 24.709014
+      long: 24.709014,
+      category: 'villages'
     },
     {
       id: '4',
       title: 'Aliki',
       lat: 40.60465,
-      long: 24.730073
+      long: 24.730073,
+      category: 'beaches'
     }
   ];
 
@@ -52,6 +57,24 @@ class App extends Component {
     }, 400)
   }
 
+  state = {
+    selectedCategory: 'all'
+  }
+
+  locationsForCategory(category) {
+    if (category === 'all') {
+      return this.locations;
+    }
+
+    return this.locations.filter(location => {
+      return location.category === category;
+    })
+  }
+
+  handleCategoryChange = (selectedCategory) => {
+    this.setState({selectedCategory});
+  }
+
   render() {
     return (
       <div>
@@ -62,7 +85,9 @@ class App extends Component {
         <nav role="navigation">
           <button className="closebtn" onClick={this.closeNav}>&times;</button>
           <LocationsList
-            locations={this.locations}
+            selectedCategory={this.state.selectedCategory}
+            locations={this.locationsForCategory(this.state.selectedCategory)}
+            onCategoryChange={this.handleCategoryChange}
           />
         </nav>
         <main role="main">
