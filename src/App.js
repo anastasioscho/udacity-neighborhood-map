@@ -92,7 +92,9 @@ class App extends Component {
           />
         </nav>
         <main role="main">
-          <MapComponent/>
+          <MapComponent
+            locations={this.locationsForCategory(this.state.selectedCategory)}
+          />
         </main>
       </div>
     );
