@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 
 class LocationsList extends Component {
     render() {
+        const {locations} = this.props;
         return (
             <ul>
-                <li>Point of interest 1</li>
-                <li>Point of interest 2</li>
-                <li>Point of interest 3</li>
-                <li>Point of interest 4</li>
-                <li>Point of interest 5</li>
+                {locations.map(location => {
+                    return(
+                        <li key={location.id}>{location.title}</li>
+                    )
+                })}
             </ul>
         )
     }
