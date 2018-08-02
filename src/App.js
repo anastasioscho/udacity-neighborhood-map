@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import LocationsList from './components/LocationsList'
+import MapComponent from './components/MapComponent'
 
 class App extends Component {
   locations = [
@@ -91,7 +92,7 @@ class App extends Component {
           />
         </nav>
         <main role="main">
-          <p>This is where the map goes</p>
+          <MapComponent/>
         </main>
       </div>
     );
