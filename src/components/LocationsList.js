@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class LocationsList extends Component {
     render() {
@@ -21,6 +22,12 @@ class LocationsList extends Component {
             </div>
         );
     }
+}
+
+LocationsList.propTypes = {
+    selectedCategory: PropTypes.string.isRequired,
+    locations: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onCategoryChange: PropTypes.func.isRequired
 }
 
 export default LocationsList;
