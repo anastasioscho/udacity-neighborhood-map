@@ -10,6 +10,10 @@ class MapComponent extends Component {
                 center: {lat: 40.696855, lng: 24.656471},
                 zoom: 11
             });
+            this.infoWindow = new window.google.maps.InfoWindow();
+            this.infoWindow.addListener('closeclick', () => {
+                this.infoWindow.marker = null;
+            });
 
             this.markers = this.markersFromLocations(this.props.locations);
             this.addMarkersToMap(this.markers, this.map);
@@ -34,12 +38,24 @@ class MapComponent extends Component {
     /* Helper Functions */
 
     markersFromLocations(locations) {
-        return locations.map((currentLocation) => {
+        const markers = locations.map((currentLocation) => {
             return new window.google.maps.Marker({
                 position: {lat: currentLocation.lat, lng: currentLocation.long},
                 title: currentLocation.title
             });
         });
+
+        markers.forEach((marker) => {
+            marker.addListener('click', () => {
+                if (this.infoWindow.marker !== marker) {
+                    this.infoWindow.marker = marker;
+                    this.infoWindow.setContent(`<p>${marker.title}</p>`);
+                    this.infoWindow.open(this.map, marker);
+                }
+            });
+        });
+
+        return markers;
     }
 
     addMarkersToMap(markers, map) {
