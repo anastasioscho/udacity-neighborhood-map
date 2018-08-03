@@ -43,7 +43,8 @@ class MapComponent extends Component {
         const markers = locations.map((currentLocation) => {
             return new window.google.maps.Marker({
                 position: {lat: currentLocation.lat, lng: currentLocation.long},
-                title: currentLocation.title
+                title: currentLocation.title,
+                id: currentLocation.id
             });
         });
 
@@ -51,10 +52,14 @@ class MapComponent extends Component {
             marker.addListener('click', () => {
                 if (this.infoWindow.marker !== marker) {
                     this.infoWindow.marker = marker;
-                    this.infoWindow.setContent(ReactDOMServer.renderToString(<MarkerInformationComponent
-                    marker={marker}
-                    />));
+                    this.infoWindow.setContent(ReactDOMServer.renderToString(
+                        <MarkerInformationComponent
+                            marker={marker}
+                            message='Please wait while we are looking for more information'
+                        />
+                    ));
                     this.infoWindow.open(this.map, marker);
+                    this.updateInfoWindowWithAdditionalInformation(marker);
                 }
             });
         });
@@ -71,6 +76,29 @@ class MapComponent extends Component {
     clearMarkersFromMap(markers) {
         markers.forEach((marker) => {
             marker.setMap(null);
+        });
+    }
+
+    updateInfoWindowWithAdditionalInformation(marker) {
+        const url = `https://explore-thassos.com/api/getPlace.php?id=${marker.id}`;
+
+        fetch(url).then((response) => {
+            return response.json();
+        }).then((data) => {
+            if (this.infoWindow.marker === marker) {
+                this.infoWindow.setContent(ReactDOMServer.renderToString(<MarkerInformationComponent
+                    marker={marker}
+                    description={data.place.description}
+                    image={data.place.image}
+                />));
+            }
+        }).catch(() => {
+            if (this.infoWindow.marker === marker) {
+                this.infoWindow.setContent(ReactDOMServer.renderToString(<MarkerInformationComponent
+                    marker={marker}
+                    message='There was an error trying to get additional information'
+                />));
+            }
         });
     }
 }
