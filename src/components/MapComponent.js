@@ -51,6 +51,7 @@ class MapComponent extends Component {
         markers.forEach((marker) => {
             marker.addListener('click', () => {
                 if (this.infoWindow.marker !== marker) {
+                    this.animateMarker(marker);
                     this.infoWindow.marker = marker;
                     this.infoWindow.setContent(ReactDOMServer.renderToString(
                         <MarkerInformationComponent
@@ -100,6 +101,15 @@ class MapComponent extends Component {
                 />));
             }
         });
+    }
+
+    animateMarker(marker) {
+        if (marker.getAnimation()) return;
+
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        window.setTimeout(() => {
+            marker.setAnimation(null);
+        }, 700 * 2);
     }
 }
 
