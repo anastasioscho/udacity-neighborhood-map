@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import loadjs from 'loadjs'
 import PropTypes from 'prop-types'
+import MarkerInformationComponent from './MarkerInformationComponent'
+import ReactDOMServer from 'react-dom/server'
 
 class MapComponent extends Component {
     componentDidMount() {
@@ -49,7 +51,9 @@ class MapComponent extends Component {
             marker.addListener('click', () => {
                 if (this.infoWindow.marker !== marker) {
                     this.infoWindow.marker = marker;
-                    this.infoWindow.setContent(`<p>${marker.title}</p>`);
+                    this.infoWindow.setContent(ReactDOMServer.renderToString(<MarkerInformationComponent
+                    marker={marker}
+                    />));
                     this.infoWindow.open(this.map, marker);
                 }
             });
