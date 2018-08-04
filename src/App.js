@@ -86,7 +86,10 @@ class App extends Component {
     return (
       <div className="wrapper">
         <header role="banner">
-          <h1>Best of Thassos</h1>
+          <div className="header-title-wrapper">
+            <h1>Best of Thassos</h1>
+            <p>Thank you <a href="https://explore-thassos.com" target="_blank">explore-thassos</a> for providing us the data!</p>
+          </div>
           <button onClick={this.openNav}>&#9776;</button>
         </header>
         <nav role="navigation">

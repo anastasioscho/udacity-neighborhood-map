@@ -25,10 +25,23 @@ header button {
     border: none;
 }
 
-header h1 {
+header .header-title-wrapper {
     order: 1;
     padding: 0 20px;
+}
+
+header h1 {
     font-size: 1.7rem;
+    margin-bottom: 0;
+}
+
+header p {
+    margin-top: 10px;
+}
+
+header p a {
+    color: rgb(217, 80, 64);
+    line-height: 1.5;
 }
 
 nav {
