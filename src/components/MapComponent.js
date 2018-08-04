@@ -142,6 +142,11 @@ class MapComponent extends Component {
     animateMarker(marker) {
         if (marker.getAnimation()) return;
 
+        // Stop other markers from animating
+        for (const tempMarker of this.markers) {
+            tempMarker.setAnimation(null);
+        }
+
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
         window.setTimeout(() => {
             marker.setAnimation(null);
