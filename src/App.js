@@ -86,8 +86,8 @@ class App extends Component {
     return (
       <div className="wrapper">
         <header role="banner">
-          <h1>Udacity Neighborhood Map</h1>
-          <button onClick={this.openNav}>&#9776; Open menu</button>
+          <h1>Best of Thassos</h1>
+          <button onClick={this.openNav}>&#9776;</button>
         </header>
         <nav role="navigation">
           <button className="closebtn" onClick={this.closeNav}>&times;</button>

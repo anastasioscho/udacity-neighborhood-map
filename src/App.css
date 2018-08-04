@@ -8,6 +8,29 @@ main {
     flex: 1;
 }
 
+header {
+    display: flex;
+    background-color: #111;
+    color: white;
+}
+
+header button {
+    order: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background-color: rgb(217, 80, 64);
+    color: inherit;
+    cursor: pointer;
+    padding: 10px 25px;
+    border: none;
+}
+
+header h1 {
+    order: 1;
+    padding: 0 20px;
+    font-size: 1.7rem;
+}
+
 nav {
     height: 100%;
     width: 250px;
@@ -40,6 +63,10 @@ nav .closebtn {
 @media (min-width: 768px) {
     header button {
         display: none;
+    }
+
+    header h1 {
+        font-size: 2rem;
     }
     
     nav {
