@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import './LocationsListComponent.css'
 
 class LocationsList extends Component {
     render() {
         const {selectedCategory, locations, onCategoryChange, onLocationClick} = this.props;
         
         return (
-            <div>
+            <div className="locations-list-container">
                 <select value={selectedCategory} onChange={(event) => onCategoryChange(event.target.value)}>
                     <option value='all'>All places</option>
                     <option value='villages'>Villages</option>
