@@ -79,6 +79,7 @@ class App extends Component {
 
   handleLocationClick = (selectedLocation) => {
     this.setState({selectedLocation});
+    this.closeNav();
   }
 
   render() {
