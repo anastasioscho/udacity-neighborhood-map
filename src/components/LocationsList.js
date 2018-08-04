@@ -16,7 +16,7 @@ class LocationsList extends Component {
                     {locations.map(location => {
                         return(
                             <li key={location.id}>
-                                <a onClick={() => onLocationClick(location)}>{location.title}</a>
+                                <button onClick={() => onLocationClick(location)}>{location.title}</button>
                             </li>
                         );
                     })}
