@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './LocationsListComponent.css'
 
-class LocationsList extends Component {
+class LocationsListComponent extends Component {
     render() {
         const {selectedCategory, locations, onCategoryChange, onLocationClick} = this.props;
         
@@ -27,11 +27,11 @@ class LocationsList extends Component {
     }
 }
 
-LocationsList.propTypes = {
+LocationsListComponent.propTypes = {
     selectedCategory: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.object).isRequired,
     onCategoryChange: PropTypes.func.isRequired,
     onLocationClick: PropTypes.func.isRequired
 }
 
-export default LocationsList;
+export default LocationsListComponent;

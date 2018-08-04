@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import LocationsList from './components/LocationsList'
+import LocationsListComponent from './components/LocationsListComponent'
 import MapComponent from './components/MapComponent'
 
 class App extends Component {
@@ -94,7 +94,7 @@ class App extends Component {
         </header>
         <nav role="navigation">
           <button className="closebtn" onClick={this.closeNav}>&times;</button>
-          <LocationsList
+          <LocationsListComponent
             selectedCategory={this.state.selectedCategory}
             locations={this.locationsForCategory(this.state.selectedCategory)}
             onCategoryChange={this.handleCategoryChange}
