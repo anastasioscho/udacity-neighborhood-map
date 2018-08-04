@@ -3,6 +3,7 @@ import loadjs from 'loadjs'
 import PropTypes from 'prop-types'
 import MarkerInformationComponent from './MarkerInformationComponent'
 import ReactDOMServer from 'react-dom/server'
+import './MapComponent.css'
 
 class MapComponent extends Component {
     componentDidMount() {
@@ -44,7 +45,7 @@ class MapComponent extends Component {
     render() {
         console.log('MapComponent', 'I just rendered');
         return (
-            <div ref="map" role="application" aria-label='A map showing the locations' style={{height: '100vh', width: '100%'}}>This is where the map goes</div>
+            <div className="map-container" ref="map" role="application" aria-label='A map showing the locations'>This is where the map goes</div>
         )
     }
 

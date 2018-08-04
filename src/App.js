@@ -84,7 +84,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <header role="banner">
           <h1>Udacity Neighborhood Map</h1>
           <button onClick={this.openNav}>&#9776; Open menu</button>
