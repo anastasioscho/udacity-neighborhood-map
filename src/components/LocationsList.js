@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 class LocationsList extends Component {
     render() {
-        const {selectedCategory, locations, onCategoryChange} = this.props;
+        const {selectedCategory, locations, onCategoryChange, onLocationClick} = this.props;
         
         return (
             <div>
@@ -15,7 +15,9 @@ class LocationsList extends Component {
                 <ul>
                     {locations.map(location => {
                         return(
-                            <li key={location.id}>{location.title}</li>
+                            <li key={location.id}>
+                                <a onClick={() => onLocationClick(location)}>{location.title}</a>
+                            </li>
                         );
                     })}
                 </ul>
@@ -27,7 +29,8 @@ class LocationsList extends Component {
 LocationsList.propTypes = {
     selectedCategory: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onCategoryChange: PropTypes.func.isRequired
+    onCategoryChange: PropTypes.func.isRequired,
+    onLocationClick: PropTypes.func.isRequired
 }
 
 export default LocationsList;

@@ -23,9 +23,18 @@ class MapComponent extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        this.clearMarkersFromMap(this.markers);
-        this.markers = this.markersFromLocations(nextProps.locations);
-        this.addMarkersToMap(this.markers, this.map);
+        // If there is a different set of locations, redraw the markers.
+        if (!this.areArraysEqual(this.props.locations, nextProps.locations)) {
+            this.clearMarkersFromMap(this.markers);
+            this.markers = this.markersFromLocations(nextProps.locations);
+            this.addMarkersToMap(this.markers, this.map);
+        }
+
+        // If there is a selected location, open the InfoWindow of the corresponding marker.
+        const locationMarker = this.markerForLocation(nextProps.selectedLocation);
+        if (locationMarker) {
+            this.openInfoWindow(locationMarker);
+        }
 
         return false;
     }
@@ -50,22 +59,36 @@ class MapComponent extends Component {
 
         markers.forEach((marker) => {
             marker.addListener('click', () => {
-                if (this.infoWindow.marker !== marker) {
-                    this.animateMarker(marker);
-                    this.infoWindow.marker = marker;
-                    this.infoWindow.setContent(ReactDOMServer.renderToString(
-                        <MarkerInformationComponent
-                            marker={marker}
-                            message='Please wait while we are looking for more information'
-                        />
-                    ));
-                    this.infoWindow.open(this.map, marker);
-                    this.updateInfoWindowWithAdditionalInformation(marker);
-                }
+                this.openInfoWindow(marker);
             });
         });
 
         return markers;
+    }
+
+    openInfoWindow(marker) {
+        if (this.infoWindow.marker !== marker) {
+            this.animateMarker(marker);
+            this.infoWindow.marker = marker;
+            this.infoWindow.setContent(ReactDOMServer.renderToString(
+                <MarkerInformationComponent
+                    marker={marker}
+                    message='Please wait while we are looking for more information'
+                />
+            ));
+            this.infoWindow.open(this.map, marker);
+            this.updateInfoWindowWithAdditionalInformation(marker);
+        }
+    }
+
+    markerForLocation(location) {
+        if (location) {
+            for (const marker of this.markers) {
+                if (location.id === marker.id) return marker;
+            }
+        }
+
+        return undefined
     }
 
     addMarkersToMap(markers, map) {
@@ -111,10 +134,32 @@ class MapComponent extends Component {
             marker.setAnimation(null);
         }, 700 * 2);
     }
+
+    areArraysEqual(array1, array2) {
+        // if any of the arrays is a falsy value, return.
+        if (!array1 || !array2) return false;
+
+        // Compare lengths - can save a lot of time.
+        if (array1.length !== array2.length) return false;
+
+        for (var i = 0, l=this.length; i < l; i++) {
+            // Check if we have nested arrays.
+            if (array1[i] instanceof Array && array2[i] instanceof Array) {
+                // Recurse into the nested arrays.
+                if (!array1[i].equals(array2[i])) return false;
+            } else if (array1[i] !== array2[i]) {
+                // Warning: two different object instances will never be equal: {x:20} != {x:20}
+                return false;
+            }
+        }
+        
+        return true;
+    }
 }
 
 MapComponent.propTypes = {
-    locations: PropTypes.arrayOf(PropTypes.object).isRequired
+    locations: PropTypes.arrayOf(PropTypes.object).isRequired,
+    selectedLocation: PropTypes.object
 }
 
 export default MapComponent;

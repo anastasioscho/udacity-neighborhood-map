@@ -59,7 +59,8 @@ class App extends Component {
   }
 
   state = {
-    selectedCategory: 'all'
+    selectedCategory: 'all',
+    selectedLocation: null
   }
 
   locationsForCategory(category) {
@@ -73,7 +74,11 @@ class App extends Component {
   }
 
   handleCategoryChange = (selectedCategory) => {
-    this.setState({selectedCategory});
+    this.setState({selectedCategory, selectedLocation: null});
+  }
+
+  handleLocationClick = (selectedLocation) => {
+    this.setState({selectedLocation});
   }
 
   render() {
@@ -89,11 +94,13 @@ class App extends Component {
             selectedCategory={this.state.selectedCategory}
             locations={this.locationsForCategory(this.state.selectedCategory)}
             onCategoryChange={this.handleCategoryChange}
+            onLocationClick={this.handleLocationClick}
           />
         </nav>
         <main role="main">
           <MapComponent
             locations={this.locationsForCategory(this.state.selectedCategory)}
+            selectedLocation={this.state.selectedLocation}
           />
         </main>
       </div>
