@@ -19,6 +19,7 @@ class MapComponent extends Component {
 
             this.markers = this.markersFromLocations(this.props.locations);
             this.addMarkersToMap(this.markers, this.map);
+            this.setMapBounds();
         });
     }
 
@@ -28,6 +29,7 @@ class MapComponent extends Component {
             this.clearMarkersFromMap(this.markers);
             this.markers = this.markersFromLocations(nextProps.locations);
             this.addMarkersToMap(this.markers, this.map);
+            this.setMapBounds();
         }
 
         // If there is a selected location, open the InfoWindow of the corresponding marker.
@@ -101,6 +103,16 @@ class MapComponent extends Component {
         markers.forEach((marker) => {
             marker.setMap(null);
         });
+    }
+
+    setMapBounds() {
+        const bounds = new window.google.maps.LatLngBounds();
+
+        for (const marker of this.markers) {
+            bounds.extend(marker.position);
+        }
+
+        this.map.fitBounds(bounds);
     }
 
     updateInfoWindowWithAdditionalInformation(marker) {
