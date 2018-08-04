@@ -1,0 +1,19 @@
+.location-information-wrapper {
+    max-width: 280px;
+}
+
+.location-information-wrapper h2 {
+    margin-bottom: 0;
+    color: rgb(217, 80, 64);
+    font-size: 1.5rem;
+}
+
+.location-information-wrapper p {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+.location-information-wrapper .location-image {
+    max-width: 100%;
+    max-height: auto;
+}

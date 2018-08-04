@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import './MarkerInformationComponent.css'
 
 class MarkerInformationComponent extends Component {
     render() {
         return(
-            <div>
-                <p>{this.props.marker.title}</p>
+            <div className="location-information-wrapper">
+                <h2>{this.props.marker.title}</h2>
                 {this.props.message &&
                     <p>{this.props.message}</p>
                 }
@@ -14,6 +15,7 @@ class MarkerInformationComponent extends Component {
                 }
                 {this.props.image &&
                     <img
+                        className="location-image"
                         src={this.props.image}
                         alt={`Photo of ${this.props.marker.title}`}
                     />
