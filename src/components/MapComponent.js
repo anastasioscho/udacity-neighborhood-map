@@ -6,13 +6,15 @@ import ReactDOMServer from 'react-dom/server'
 import './MapComponent.css'
 
 class MapComponent extends Component {
+    state = {
+        googleAPIMessage: 'Please wait while we are loading the Google Maps API...'
+    }
+
     componentDidMount() {
         loadjs('https://maps.googleapis.com/maps/api/js?key=AIzaSyC4j2OsSiIGHMKVka01EsmJV6VG88XwvG4', 'load-google-maps-api');
 
         loadjs.ready('load-google-maps-api', {
             success: () => {
-                this.refs.googleMapsMessage.innerHTML = '';
-
                 this.map = new window.google.maps.Map(this.refs.map, {
                     center: {lat: 40.696855, lng: 24.656471},
                     zoom: 11
@@ -27,12 +29,14 @@ class MapComponent extends Component {
                 this.setMapBounds();
             },
             error: () => {
-                this.refs.googleMapsMessage.innerHTML = 'There was a problem loading the Google Maps API.';
+                this.setState({googleAPIMessage: 'There was a problem loading the Google Maps API.'});
             }
         });
     }
 
-    shouldComponentUpdate(nextProps) {
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state.googleAPIMessage !== nextState.googleAPIMessage) return true;
+
         // The Google Maps API has not been loaded.
         if (!this.map || !this.markers || !this.infoWindow) return false;
 
@@ -56,7 +60,9 @@ class MapComponent extends Component {
     render() {
         return (
             <div className="map-container" ref="map" role="application" aria-label='A map showing the locations'>
-                <p ref="googleMapsMessage" className="google-maps-message">Please wait while we are loading the Google Maps API...</p>
+                <p className="google-maps-message">
+                    {this.state.googleAPIMessage}
+                </p>
             </div>
         )
     }
