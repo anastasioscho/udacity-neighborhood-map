@@ -17,7 +17,7 @@ class MarkerInformationComponent extends Component {
                     <img
                         className="location-image"
                         src={this.props.image}
-                        alt={`Photo of ${this.props.marker.title}`}
+                        alt={this.props.imageDescription}
                     />
                 }
             </div>
@@ -29,7 +29,8 @@ MarkerInformationComponent.propTypes = {
     marker: PropTypes.object.isRequired,
     message: PropTypes.string,
     description: PropTypes.string,
-    image: PropTypes.string
+    image: PropTypes.string,
+    imageDescription: PropTypes.string
 }
 
 export default MarkerInformationComponent;

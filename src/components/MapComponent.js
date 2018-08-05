@@ -145,6 +145,7 @@ class MapComponent extends Component {
                     marker={marker}
                     description={data.place.description}
                     image={data.place.image}
+                    imageDescription={data.place.imageDescription}
                 />));
             }
         }).catch(() => {
