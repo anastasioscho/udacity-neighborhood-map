@@ -8,23 +8,34 @@ import './MapComponent.css'
 class MapComponent extends Component {
     componentDidMount() {
         loadjs('https://maps.googleapis.com/maps/api/js?key=AIzaSyC4j2OsSiIGHMKVka01EsmJV6VG88XwvG4', 'load-google-maps-api');
-        loadjs.ready('load-google-maps-api', () => {
-            this.map = new window.google.maps.Map(this.refs.map, {
-                center: {lat: 40.696855, lng: 24.656471},
-                zoom: 11
-            });
-            this.infoWindow = new window.google.maps.InfoWindow();
-            this.infoWindow.addListener('closeclick', () => {
-                this.infoWindow.marker = null;
-            });
 
-            this.markers = this.markersFromLocations(this.props.locations);
-            this.addMarkersToMap(this.markers, this.map);
-            this.setMapBounds();
+        loadjs.ready('load-google-maps-api', {
+            success: () => {
+                this.refs.googleMapsMessage.innerHTML = '';
+
+                this.map = new window.google.maps.Map(this.refs.map, {
+                    center: {lat: 40.696855, lng: 24.656471},
+                    zoom: 11
+                });
+                this.infoWindow = new window.google.maps.InfoWindow();
+                this.infoWindow.addListener('closeclick', () => {
+                    this.infoWindow.marker = null;
+                });
+    
+                this.markers = this.markersFromLocations(this.props.locations);
+                this.addMarkersToMap(this.markers, this.map);
+                this.setMapBounds();
+            },
+            error: () => {
+                this.refs.googleMapsMessage.innerHTML = 'There was a problem loading the Google Maps API.';
+            }
         });
     }
 
     shouldComponentUpdate(nextProps) {
+        // The Google Maps API has not been loaded.
+        if (!this.map || !this.markers || !this.infoWindow) return false;
+
         // If there is a different set of locations, redraw the markers.
         if (!this.areArraysEqual(this.props.locations, nextProps.locations)) {
             this.clearMarkersFromMap(this.markers);
@@ -43,9 +54,10 @@ class MapComponent extends Component {
     }
 
     render() {
-        console.log('MapComponent', 'I just rendered');
         return (
-            <div className="map-container" ref="map" role="application" aria-label='A map showing the locations'>This is where the map goes</div>
+            <div className="map-container" ref="map" role="application" aria-label='A map showing the locations'>
+                <p ref="googleMapsMessage" className="google-maps-message">Please wait while we are loading the Google Maps API...</p>
+            </div>
         )
     }
 

@@ -1,3 +1,8 @@
 .map-container {
     height: 100%;
 }
+
+.map-container .google-maps-message {
+    color: white;
+    padding: 0 20px;
+}
