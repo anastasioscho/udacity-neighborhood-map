@@ -18,7 +18,9 @@ function LocationsListComponent(props) {
                         <li key={location.id}>
                             <button
                                 onClick={() => onLocationClick(location)}
-                                className={selectedLocation && selectedLocation.id === location.id ? 'selected-location' : null}>
+                                className={selectedLocation && selectedLocation.id === location.id ? 'selected-location' : null}
+                                aria-current={selectedLocation && selectedLocation.id === location.id ? 'true' : null}
+                            >
                                     {location.title}
                             </button>
                         </li>
