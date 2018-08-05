@@ -7,7 +7,7 @@ function LocationsListComponent(props) {
         
     return (
         <div className="locations-list-container">
-            <select role="search" value={selectedCategory} onChange={(event) => onCategoryChange(event.target.value)}>
+            <select role="search" aria-label="Filter the locations by their category" value={selectedCategory} onChange={(event) => onCategoryChange(event.target.value)}>
                 <option value='all'>All places</option>
                 <option value='villages'>Villages</option>
                 <option value='beaches'>Beaches</option>
