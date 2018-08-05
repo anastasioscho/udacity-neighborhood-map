@@ -43,18 +43,18 @@ class App extends Component {
   ];
 
   openNav() {
-    document.querySelector('nav').style.transition = '0.4s';
-    document.querySelector('nav').classList.add('nav-open');
+    this.refs.menu.style.transition = '0.4s';
+    this.refs.menu.classList.add('nav-open');
     window.setTimeout(() => {
-      document.querySelector('nav').style.transition = 'none';
+      this.refs.menu.style.transition = 'none';
     }, 400);
   }
 
   closeNav() {
-    document.querySelector('nav').style.transition = '0.4s';
-    document.querySelector('nav').classList.remove('nav-open');
+    this.refs.menu.style.transition = '0.4s';
+    this.refs.menu.classList.remove('nav-open');
     window.setTimeout(() => {
-      document.querySelector('nav').style.transition = 'none';
+      this.refs.menu.style.transition = 'none';
     }, 400);
   }
 
@@ -90,10 +90,10 @@ class App extends Component {
             <h1>Best of Thassos</h1>
             <p>Thank you <a href="https://explore-thassos.com" target="_blank">explore-thassos</a> for providing us the data!</p>
           </div>
-          <button onClick={this.openNav}>&#9776;</button>
+          <button onClick={() => this.openNav()}>&#9776;</button>
         </header>
-        <nav role="navigation">
-          <button className="closebtn" onClick={this.closeNav}>&times;</button>
+        <nav ref="menu" role="navigation">
+          <button className="closebtn" onClick={() => this.closeNav()}>&times;</button>
           <LocationsListComponent
             selectedCategory={this.state.selectedCategory}
             locations={this.locationsForCategory(this.state.selectedCategory)}
