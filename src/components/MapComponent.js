@@ -10,10 +10,13 @@ class MapComponent extends Component {
         googleAPIMessage: 'Please wait while we are loading the Google Maps API...'
     }
 
+    /* Component Lifecycle Methods */
+
     componentDidMount() {
         loadjs('https://maps.googleapis.com/maps/api/js?key=AIzaSyC4j2OsSiIGHMKVka01EsmJV6VG88XwvG4', 'load-google-maps-api');
 
         loadjs.ready('load-google-maps-api', {
+            // The Google Maps API succeeded to load.
             success: () => {
                 this.map = new window.google.maps.Map(this.refs.map, {
                     center: {lat: 40.696855, lng: 24.656471},
@@ -24,17 +27,19 @@ class MapComponent extends Component {
                     this.infoWindow.marker = null;
                 });
     
-                this.markers = this.markersFromLocations(this.props.locations);
+                this.markers = this.createMarkersFromLocations(this.props.locations);
                 this.addMarkersToMap(this.markers, this.map);
                 this.setMapBounds();
             },
             error: () => {
+                // The Google Maps API failed to load.
                 this.setState({googleAPIMessage: 'There was a problem loading the Google Maps API.'});
             }
         });
     }
 
     shouldComponentUpdate(nextProps, nextState) {
+        // Render ONLY if the state changed.
         if (this.state.googleAPIMessage !== nextState.googleAPIMessage) return true;
 
         // The Google Maps API has not been loaded.
@@ -43,15 +48,15 @@ class MapComponent extends Component {
         // If there is a different set of locations, redraw the markers.
         if (!this.areArraysEqual(this.props.locations, nextProps.locations)) {
             this.clearMarkersFromMap(this.markers);
-            this.markers = this.markersFromLocations(nextProps.locations);
+            this.markers = this.createMarkersFromLocations(nextProps.locations);
             this.addMarkersToMap(this.markers, this.map);
             this.setMapBounds();
         }
 
         // If there is a selected location, open the InfoWindow of the corresponding marker.
-        const locationMarker = this.markerForLocation(nextProps.selectedLocation);
+        const locationMarker = this.correspondingMarkerForLocation(nextProps.selectedLocation);
         if (locationMarker) {
-            this.openInfoWindow(locationMarker);
+            this.openInfoWindowForMarker(locationMarker);
         }
 
         return false;
@@ -69,7 +74,7 @@ class MapComponent extends Component {
 
     /* Helper Functions */
 
-    markersFromLocations(locations) {
+    createMarkersFromLocations(locations) {
         const markers = locations.map((currentLocation) => {
             return new window.google.maps.Marker({
                 position: {lat: currentLocation.lat, lng: currentLocation.long},
@@ -80,14 +85,14 @@ class MapComponent extends Component {
 
         markers.forEach((marker) => {
             marker.addListener('click', () => {
-                this.openInfoWindow(marker);
+                this.openInfoWindowForMarker(marker);
             });
         });
 
         return markers;
     }
 
-    openInfoWindow(marker) {
+    openInfoWindowForMarker(marker) {
         if (this.infoWindow.marker !== marker) {
             this.animateMarker(marker);
             this.infoWindow.marker = marker;
@@ -102,7 +107,7 @@ class MapComponent extends Component {
         }
     }
 
-    markerForLocation(location) {
+    correspondingMarkerForLocation(location) {
         if (location) {
             for (const marker of this.markers) {
                 if (location.id === marker.id) return marker;
