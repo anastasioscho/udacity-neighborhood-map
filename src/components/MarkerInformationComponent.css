@@ -1,5 +1,5 @@
 .location-information-wrapper {
-    max-width: 280px;
+    max-width: 200px;
 }
 
 .location-information-wrapper h2 {
@@ -16,4 +16,10 @@
 .location-information-wrapper .location-image {
     max-width: 100%;
     max-height: auto;
+}
+
+@media (min-width: 576px) {
+    .location-information-wrapper {
+        max-width: 280px;
+    }
 }
