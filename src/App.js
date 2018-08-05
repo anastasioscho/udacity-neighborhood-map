@@ -84,11 +84,11 @@ class App extends Component {
         <header role="banner">
           <div className="header-title-wrapper">
             <h1>Best of Thassos</h1>
-            <p>Thank you <a href="https://explore-thassos.com" target="_blank">explore-thassos</a> for providing us the data!</p>
+            <p>Thank you <a href="https://explore-thassos.com" target="_blank" rel="noopener noreferrer">explore-thassos</a> for providing us the data!</p>
           </div>
           <button ref="menuButton" onClick={() => this.toggleNav()}>&#9776;</button>
         </header>
-        <nav ref="menu" role="navigation">
+        <nav ref="menu">
           <button ref="closeButton" className="closebtn" onClick={() => this.toggleNav()}>&times;</button>
           <LocationsListComponent
             selectedCategory={this.state.selectedCategory}
