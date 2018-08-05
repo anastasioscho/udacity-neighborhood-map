@@ -78,6 +78,14 @@ class App extends Component {
     this.toggleNav();
   }
 
+  handleInfoWindowCloseClick = () => {
+    this.setState({selectedLocation: null});
+  }
+
+  handleMarkerClick = (selectedLocation) => {
+    this.setState({selectedLocation});
+  }
+
   render() {
     return (
       <div className="wrapper">
@@ -95,12 +103,15 @@ class App extends Component {
             locations={this.locationsForCategory(this.state.selectedCategory)}
             onCategoryChange={this.handleCategoryChange}
             onLocationClick={this.handleLocationClick}
+            selectedLocation={this.state.selectedLocation}
           />
         </nav>
         <main role="main">
           <MapComponent
             locations={this.locationsForCategory(this.state.selectedCategory)}
             selectedLocation={this.state.selectedLocation}
+            onInfoWindowCloseClick={this.handleInfoWindowCloseClick}
+            onMarkerClick={this.handleMarkerClick}
           />
         </main>
       </div>

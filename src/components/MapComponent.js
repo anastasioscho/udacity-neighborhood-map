@@ -25,6 +25,7 @@ class MapComponent extends Component {
                 this.infoWindow = new window.google.maps.InfoWindow();
                 this.infoWindow.addListener('closeclick', () => {
                     this.infoWindow.marker = null;
+                    this.props.onInfoWindowCloseClick();
                 });
     
                 this.markers = this.createMarkersFromLocations(this.props.locations);
@@ -79,13 +80,15 @@ class MapComponent extends Component {
             return new window.google.maps.Marker({
                 position: {lat: currentLocation.lat, lng: currentLocation.long},
                 title: currentLocation.title,
-                id: currentLocation.id
+                id: currentLocation.id,
+                location: {currentLocation}
             });
         });
 
         markers.forEach((marker) => {
             marker.addListener('click', () => {
                 this.openInfoWindowForMarker(marker);
+                this.props.onMarkerClick(marker.location.currentLocation);
             });
         });
 
@@ -201,7 +204,9 @@ class MapComponent extends Component {
 
 MapComponent.propTypes = {
     locations: PropTypes.arrayOf(PropTypes.object).isRequired,
-    selectedLocation: PropTypes.object
+    selectedLocation: PropTypes.object,
+    onInfoWindowCloseClick: PropTypes.func.isRequired,
+    onMarkerClick: PropTypes.func.isRequired
 }
 
 export default MapComponent;

@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+.locations-list-container ul li button.selected-location {
+    background-color: rgb(217, 80, 64);
+}
+
 ul {
     padding: 0;
     width: 100%;

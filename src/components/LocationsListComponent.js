@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import './LocationsListComponent.css'
 
 function LocationsListComponent(props) {
-    const {selectedCategory, locations, onCategoryChange, onLocationClick} = props;
+    const {selectedCategory, locations, onCategoryChange, onLocationClick, selectedLocation} = props;
         
     return (
         <div className="locations-list-container">
@@ -16,7 +16,11 @@ function LocationsListComponent(props) {
                 {locations.map(location => {
                     return(
                         <li key={location.id}>
-                            <button onClick={() => onLocationClick(location)}>{location.title}</button>
+                            <button
+                                onClick={() => onLocationClick(location)}
+                                className={selectedLocation && selectedLocation.id === location.id ? 'selected-location' : null}>
+                                    {location.title}
+                            </button>
                         </li>
                     );
                 })}
@@ -29,7 +33,8 @@ LocationsListComponent.propTypes = {
     selectedCategory: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.object).isRequired,
     onCategoryChange: PropTypes.func.isRequired,
-    onLocationClick: PropTypes.func.isRequired
+    onLocationClick: PropTypes.func.isRequired,
+    selectedLocation: PropTypes.object
 }
 
 export default LocationsListComponent;
