@@ -8,6 +8,7 @@ I created this website for the purposes of the [Udacity's Front-End Web Develope
 - Install [Node.js](https://nodejs.org/en/).
 - In a terminal, cd into the project directory.
 - Install all project dependencies with `npm install`.
+- Edit the **src/components/MapComponent.js** file. In line 14, you will need to replace the Google Maps API key with yours.
 - Start the development server with `npm start`.
 
 ## Screenshots
