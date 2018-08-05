@@ -42,20 +42,16 @@ class App extends Component {
     }
   ];
 
-  openNav() {
-    this.refs.menu.style.transition = '0.4s';
-    this.refs.menu.classList.add('nav-open');
-    window.setTimeout(() => {
-      this.refs.menu.style.transition = 'none';
-    }, 400);
-  }
-
-  closeNav() {
-    this.refs.menu.style.transition = '0.4s';
-    this.refs.menu.classList.remove('nav-open');
-    window.setTimeout(() => {
-      this.refs.menu.style.transition = 'none';
-    }, 400);
+  toggleNav() {
+    this.refs.menu.classList.toggle('nav-open');
+    
+    if (!this.refs.menu.classList.contains('nav-open')) {
+      this.refs.menuButton.focus();
+    } else {
+      window.setTimeout(() => {
+        this.refs.closeButton.focus();
+      }, 100);
+    }
   }
 
   state = {
@@ -79,7 +75,7 @@ class App extends Component {
 
   handleLocationClick = (selectedLocation) => {
     this.setState({selectedLocation});
-    this.closeNav();
+    this.toggleNav();
   }
 
   render() {
@@ -90,10 +86,10 @@ class App extends Component {
             <h1>Best of Thassos</h1>
             <p>Thank you <a href="https://explore-thassos.com" target="_blank">explore-thassos</a> for providing us the data!</p>
           </div>
-          <button onClick={() => this.openNav()}>&#9776;</button>
+          <button ref="menuButton" onClick={() => this.toggleNav()}>&#9776;</button>
         </header>
         <nav ref="menu" role="navigation">
-          <button className="closebtn" onClick={() => this.closeNav()}>&times;</button>
+          <button ref="closeButton" className="closebtn" onClick={() => this.toggleNav()}>&times;</button>
           <LocationsListComponent
             selectedCategory={this.state.selectedCategory}
             locations={this.locationsForCategory(this.state.selectedCategory)}

@@ -8,7 +8,7 @@ class LocationsListComponent extends Component {
         
         return (
             <div className="locations-list-container">
-                <select value={selectedCategory} onChange={(event) => onCategoryChange(event.target.value)}>
+                <select role="search" value={selectedCategory} onChange={(event) => onCategoryChange(event.target.value)}>
                     <option value='all'>All places</option>
                     <option value='villages'>Villages</option>
                     <option value='beaches'>Beaches</option>
