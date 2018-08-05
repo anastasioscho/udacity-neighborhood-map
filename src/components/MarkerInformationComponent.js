@@ -1,28 +1,26 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import './MarkerInformationComponent.css'
 
-class MarkerInformationComponent extends Component {
-    render() {
-        return(
-            <div className="location-information-wrapper">
-                <h2>{this.props.marker.title}</h2>
-                {this.props.message &&
-                    <p>{this.props.message}</p>
-                }
-                {this.props.description &&
-                    <p>{this.props.description}</p>
-                }
-                {this.props.image &&
-                    <img
-                        className="location-image"
-                        src={this.props.image}
-                        alt={this.props.imageDescription}
-                    />
-                }
-            </div>
-        );
-    }
+function MarkerInformationComponent(props) {
+    return(
+        <div className="location-information-wrapper">
+            <h2>{props.marker.title}</h2>
+            {props.message &&
+                <p>{props.message}</p>
+            }
+            {props.description &&
+                <p>{props.description}</p>
+            }
+            {props.image &&
+                <img
+                    className="location-image"
+                    src={props.image}
+                    alt={props.imageDescription}
+                />
+            }
+        </div>
+    );
 }
 
 MarkerInformationComponent.propTypes = {
