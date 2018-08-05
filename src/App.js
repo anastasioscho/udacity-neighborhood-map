@@ -42,6 +42,10 @@ class App extends Component {
     }
   ];
 
+  gm_authFailure() {
+    window.alert('Authentication with the Google Maps API failed. Please provide a valid API key.');
+  }
+
   toggleNav() {
     this.refs.menu.classList.toggle('nav-open');
     
@@ -84,6 +88,10 @@ class App extends Component {
 
   handleMarkerClick = (selectedLocation) => {
     this.setState({selectedLocation});
+  }
+
+  componentDidMount() {
+    window.gm_authFailure = this.gm_authFailure;
   }
 
   render() {
