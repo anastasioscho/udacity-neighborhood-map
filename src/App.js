@@ -8,36 +8,36 @@ class App extends Component {
     {
       id: '0',
       title: 'Panagia',
-      lat: 40.730162,
-      long: 24.729016,
+      lat: 40.730085,
+      long: 24.727079,
       category: 'villages'
     },
     {
       id: '1',
       title: 'Chrisi Ammoudia',
-      lat: 40.729866,
-      long: 24.758319,
+      lat: 40.726455,
+      long: 24.756618,
       category: 'beaches'
     },
     {
       id: '2',
       title: 'Limenaria',
-      lat: 40.627413,
-      long: 24.574206,
+      lat: 40.628268,
+      long: 24.57621,
       category: 'villages'
     },
     {
       id: '3',
-      title: 'Thasos',
-      lat: 40.775314,
-      long: 24.709014,
+      title: 'Limenas',
+      lat: 40.776696,
+      long: 24.709071,
       category: 'villages'
     },
     {
       id: '4',
-      title: 'Aliki',
-      lat: 40.60465,
-      long: 24.730073,
+      title: 'Giola',
+      lat: 40.586365,
+      long: 24.678652,
       category: 'beaches'
     }
   ];
